@@ -6,4 +6,9 @@ export class AppController {
   getHello(): string {
     return 'Hello World';
   }
+
+  @Get('cat/:catId')
+  getMyCat(): { name: string; id: number } {
+    return { name: 'Killer', id: 100 };
+  }
 }
