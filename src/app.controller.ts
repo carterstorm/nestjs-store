@@ -28,7 +28,13 @@ export class AppController {
 
   @Post()
   addNewCategory(@Body() payload: { name: string }) {
-    const category: TCategory = { id: this.categories.length + 1, ...payload };
+    const category: TCategory = {
+      id:
+        this.categories.length === 0
+          ? 1
+          : this.categories[this.categories.length - 1].id + 1,
+      ...payload,
+    };
     this.categories.push(category);
     return category;
   }
