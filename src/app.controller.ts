@@ -31,10 +31,8 @@ export class AppController {
   }
 
   @Get(':id')
-  getSingleCategory(@Param('id') categoryId: string) {
-    const category = this.categories.find(
-      ({ id }) => id === Number(categoryId),
-    );
+  getSingleCategory(@Param('id') categoryId: number) {
+    const category = this.categories.find(({ id }) => id === categoryId);
     if (!category) {
       throw new NotFoundException(`Category with id: ${categoryId} not found`);
     }
