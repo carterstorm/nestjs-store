@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { NewCategoryDto } from './new-category.dto';
 
 type TCategory = {
@@ -24,7 +32,13 @@ export class AppController {
 
   @Get(':id')
   getSingleCategory(@Param('id') categoryId: string) {
-    return this.categories.find(({ id }) => id === Number(categoryId));
+    const category = this.categories.find(
+      ({ id }) => id === Number(categoryId),
+    );
+    if (!category) {
+      throw new NotFoundException(`Category with id: ${categoryId} not found`);
+    }
+    return category;
   }
 
   @Post()
