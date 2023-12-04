@@ -25,6 +25,15 @@ export class AppController {
     { id: 7, name: 'Games' },
   ];
 
+  private getCategory = (categoryId: number) => {
+    const searchCategory = this.categories.find(({ id }) => id === categoryId);
+
+    if (!searchCategory) {
+      throw new NotFoundException(`Category with id: ${categoryId} not found`);
+    }
+    return searchCategory;
+  };
+
   @Get()
   getAllCategories() {
     return this.categories;
@@ -32,11 +41,9 @@ export class AppController {
 
   @Get(':id')
   getSingleCategory(@Param('id') categoryId: number) {
-    const category = this.categories.find(({ id }) => id === categoryId);
-    if (!category) {
-      throw new NotFoundException(`Category with id: ${categoryId} not found`);
-    }
-    return category;
+    const singleCategory = this.getCategory(categoryId);
+
+    return singleCategory;
   }
 
   @Post()
@@ -52,13 +59,12 @@ export class AppController {
     return category;
   }
 
-  @Delete(':name')
-  deleteCategory(@Param('name') categoryName: string): { message: string } {
-    this.categories = this.categories.filter(
-      ({ name }) => name !== categoryName,
-    );
-    return {
-      message: `${categoryName} deleted`,
-    };
+  @Delete(':id')
+  deleteCategory(@Param('id') categoryId: number) {
+    this.getCategory(categoryId);
+
+    return (this.categories = this.categories.filter(
+      ({ id }) => id !== categoryId,
+    ));
   }
 }
