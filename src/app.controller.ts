@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { NewCategoryDto } from './new-category.dto';
 
 type TCategory = {
   id: number;
@@ -27,7 +28,7 @@ export class AppController {
   }
 
   @Post()
-  addNewCategory(@Body() payload: { name: string }) {
+  addNewCategory(@Body() payload: NewCategoryDto) {
     const category: TCategory = {
       id:
         this.categories.length === 0
