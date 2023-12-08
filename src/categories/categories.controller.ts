@@ -7,14 +7,14 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { NewCategoryDto } from './new-category.dto';
+import { NewCategoryDto } from './dto/new-category.dto';
 
 type TCategory = {
   id: number;
   name: string;
 };
 @Controller('categories')
-export class AppController {
+export class CategoriesController {
   private categories: TCategory[] = [
     { id: 1, name: 'Groceries' },
     { id: 2, name: 'Cosmetics' },
