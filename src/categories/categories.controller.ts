@@ -9,18 +9,11 @@ import {
 } from '@nestjs/common';
 import { NewCategoryDto } from './dto/new-category.dto';
 import { Category } from './category.interface';
+import { categoriesList } from './categories-list';
 
 @Controller('categories')
 export class CategoriesController {
-  private categories: Category[] = [
-    { id: 1, name: 'Groceries' },
-    { id: 2, name: 'Cosmetics' },
-    { id: 3, name: 'Toys' },
-    { id: 4, name: 'Dairy' },
-    { id: 5, name: 'Fashion' },
-    { id: 6, name: 'Electronics' },
-    { id: 7, name: 'Games' },
-  ];
+  private categories: Category[] = categoriesList;
 
   private getCategory = (categoryId: number) => {
     const searchCategory = this.categories.find(({ id }) => id === categoryId);
