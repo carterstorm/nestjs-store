@@ -8,14 +8,11 @@ import {
   Post,
 } from '@nestjs/common';
 import { NewCategoryDto } from './dto/new-category.dto';
+import { Category } from './category.interface';
 
-type TCategory = {
-  id: number;
-  name: string;
-};
 @Controller('categories')
 export class CategoriesController {
-  private categories: TCategory[] = [
+  private categories: Category[] = [
     { id: 1, name: 'Groceries' },
     { id: 2, name: 'Cosmetics' },
     { id: 3, name: 'Toys' },
@@ -48,7 +45,7 @@ export class CategoriesController {
 
   @Post()
   addNewCategory(@Body() payload: NewCategoryDto) {
-    const category: TCategory = {
+    const category: Category = {
       id:
         this.categories.length === 0
           ? 1
